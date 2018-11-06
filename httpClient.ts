@@ -45,6 +45,7 @@ class Http extends HttpRequest {
             xhr.open(c.method, c.url);
  
             xhr.responseType = c.responseType;
+            xhr.timeout = 3000;
  
             if (c.method == "post")
                 xhr.setRequestHeader("Content-Type", "application/json");
