@@ -2,7 +2,10 @@
 http library typeScript / es6
 
 ## How to use
-### you need to compile to JS or integrate the js file
+**you need to compile to JS or integrate the js file**
+
+don't forget to integrate the class file in your html :mahjong: ```<script src="httpClient.min.js"></script>```
+
 
 ```
 const http = new Http(); // by default return JSON , if want text declare new Http('text');
