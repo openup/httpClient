@@ -1,7 +1,7 @@
 # httpClient
 http library typeScript / es6
 
-** live exapmle ** : (https://openup.github.io/httpClient/)
+**live exapmle**  *(https://openup.github.io/httpClient/)*
 
 
 ## How to use
