@@ -85,12 +85,3 @@ class Http extends HttpRequest {
     }
 
 }
-
-const http = new Http(); // by default return JSON , if want text declare new Http('text');
-let post = "http://httpbin.org/post";
-let get = "http://httpbin.org/headers";
-http.get(get).then((res) => {
-    console.log('Success : ', res);
-}).catch((err) => {
-    console.log('Error : ', err);
-})
