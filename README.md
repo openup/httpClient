@@ -1,6 +1,9 @@
 # httpClient
 http library typeScript / es6
 
+** live exapmle ** : (https://openup.github.io/httpClient/)
+
+
 ## How to use
 **you need to compile to JS or integrate the js file**
 
