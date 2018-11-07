@@ -38,7 +38,7 @@ class Http extends HttpRequest {
     }
 
 
-    private Xhttp(data ? : string): any {
+    private Xhttp(data ?, headers ? : {}): any {
         let c = this;
         let xhr = this.http;
         return new Promise((resolve, reject) => {
@@ -46,9 +46,11 @@ class Http extends HttpRequest {
  
             xhr.responseType = c.responseType;
             xhr.timeout = 3000;
- 
-            if (c.method == "post")
-                xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            if(headers && headers instanceof Object && Object.keys(headers).length>0)
+                xhr.setRequestHeader(headers);
 
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
@@ -65,22 +67,22 @@ class Http extends HttpRequest {
     }
 
 
-    public get(url) {
+    public get(url, headers?:{}) {
 
         this.method = "get";
         this.url = url;
 
-        return this.Xhttp();
+        return this.Xhttp(headers);
 
     }
 
 
-    public post(url, params ? : {}) {
+    public post(url, params ? : {}, headers?:{}) {
 
         this.method = "post";
         this.url = url;
 
-        return this.Xhttp(params ? JSON.stringify(params) : null);
+        return this.Xhttp(params ? JSON.stringify(params) : null, headers);
 
     }
 
