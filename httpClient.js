@@ -49,7 +49,7 @@ var Http = /** @class */ (function (_super) {
             xhr.timeout = 3000;
             xhr.setRequestHeader("Content-Type", "application/json");
             if (headers && headers instanceof Object && Object.keys(headers).length > 0)
-                Object.keys(headers).forEach( (k) => {
+                Object.keys(headers).forEach(function(k){
                        xhr.setRequestHeader(k , headers[k]);
                 });
             xhr.onreadystatechange = function () {
