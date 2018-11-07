@@ -42,24 +42,26 @@ class Http extends HttpRequest {
         let c = this;
         let xhr = this.http;
         return new Promise((resolve, reject) => {
-            xhr.open(c.method, c.url);
- 
+            xhr.open(c.method, c.url, null);
             xhr.responseType = c.responseType;
             xhr.timeout = 3000;
 
             xhr.setRequestHeader("Content-Type", "application/json");
 
             if(headers && headers instanceof Object && Object.keys(headers).length>0)
-                xhr.setRequestHeader(headers);
-
+                Object.keys(headers).forEach( (k) => {
+                       xhr.setRequestHeader(k , headers[k]);
+                });
+            
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200)
                         xhr.onload = () => resolve(xhr.response);
                     else
-                        xhr.onerror = () => reject(xhr.statusText || 'Erreur Traitement de données !');
+                        xhr.onerror = () => reject(xhr.statusText || xhr.response || 'Erreur Traitement de données !');
                 }
             }
+
             var req = xhr.send(data || null);
             if (!req)
                 xhr.onerror = () => reject(req || 'Erreur Traitement de données !');
@@ -72,8 +74,7 @@ class Http extends HttpRequest {
         this.method = "get";
         this.url = url;
 
-        return this.Xhttp(headers);
-
+        return this.Xhttp(null, headers);
     }
 
 
