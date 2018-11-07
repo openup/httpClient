@@ -32,5 +32,8 @@ http.post(post_url, {key : value}).then((res) => {
 });
 
 
+// to cancel a current request
+http.abort();
+
 
 ```
