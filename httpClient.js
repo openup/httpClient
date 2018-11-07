@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var HttpRequest = (function () {
+var HttpRequest = /** @class */ (function () {
     function HttpRequest() {
         this.http = this.getHTTPObject();
     }
@@ -32,7 +32,7 @@ var HttpRequest = (function () {
     };
     return HttpRequest;
 }());
-var Http = (function (_super) {
+var Http = /** @class */ (function (_super) {
     __extends(Http, _super);
     function Http(type) {
         var _this = _super.call(this) || this;
@@ -49,16 +49,19 @@ var Http = (function (_super) {
             xhr.timeout = 3000;
             xhr.setRequestHeader("Content-Type", "application/json");
             if (headers && headers instanceof Object && Object.keys(headers).length > 0)
-                xhr.setRequestHeader(headers);
+                Object.keys(headers).forEach( (k) => {
+                       xhr.setRequestHeader(k , headers[k]);
+                });
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200)
                         xhr.onload = function () { return resolve(xhr.response); };
                     else
-                        xhr.onerror = function () { return reject(xhr.statusText || 'Erreur Traitement de données !'); };
+                        xhr.onerror = function () { return reject(xhr.statusText || xhr.response || 'Erreur Traitement de données !'); };
                 }
             };
             var req = xhr.send(data || null);
+
             if (!req)
                 xhr.onerror = function () { return reject(req || 'Erreur Traitement de données !'); };
         });
@@ -66,7 +69,7 @@ var Http = (function (_super) {
     Http.prototype.get = function (url, headers) {
         this.method = "get";
         this.url = url;
-        return this.Xhttp(headers);
+        return this.Xhttp(null, headers);
     };
     Http.prototype.post = function (url, params, headers) {
         this.method = "post";
