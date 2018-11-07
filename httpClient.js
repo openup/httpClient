@@ -46,6 +46,7 @@ var Http = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             xhr.open(c.method, c.url);
             xhr.responseType = c.responseType;
+            xhr.timeout = 3000;
             if (c.method == "post")
                 xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function () {
@@ -69,8 +70,10 @@ var Http = /** @class */ (function (_super) {
     Http.prototype.post = function (url, params) {
         this.method = "post";
         this.url = url;
-        var Stringparams = JSON.stringify(params);
-        return this.Xhttp(Stringparams);
+        return this.Xhttp(params ? JSON.stringify(params) : null);
+    };
+    Http.prototype.abort = function () {
+        this.http.abort();
     };
     return Http;
 }(HttpRequest));
