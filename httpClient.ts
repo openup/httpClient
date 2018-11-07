@@ -42,7 +42,7 @@ class Http extends HttpRequest {
         let c = this;
         let xhr = this.http;
         return new Promise((resolve, reject) => {
-            xhr.open(c.method, c.url, null);
+            xhr.open(c.method, c.url);
  
             xhr.responseType = c.responseType;
             xhr.timeout = 3000;
@@ -79,10 +79,14 @@ class Http extends HttpRequest {
 
         this.method = "post";
         this.url = url;
-        const Stringparams = JSON.stringify(params);
 
-        return this.Xhttp(Stringparams);
+        return this.Xhttp(params ? JSON.stringify(params) : null);
 
+    }
+
+
+    public abort(){
+        this.http.abort();
     }
 
 }
