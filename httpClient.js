@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var HttpRequest = /** @class */ (function () {
+var HttpRequest = (function () {
     function HttpRequest() {
         this.http = this.getHTTPObject();
     }
@@ -32,7 +32,7 @@ var HttpRequest = /** @class */ (function () {
     };
     return HttpRequest;
 }());
-var Http = /** @class */ (function (_super) {
+var Http = (function (_super) {
     __extends(Http, _super);
     function Http(type) {
         var _this = _super.call(this) || this;
@@ -40,15 +40,16 @@ var Http = /** @class */ (function (_super) {
         _this.responseType = type || _this.responseType;
         return _this;
     }
-    Http.prototype.Xhttp = function (data) {
+    Http.prototype.Xhttp = function (data, headers) {
         var c = this;
         var xhr = this.http;
         return new Promise(function (resolve, reject) {
             xhr.open(c.method, c.url);
             xhr.responseType = c.responseType;
             xhr.timeout = 3000;
-            if (c.method == "post")
-                xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            if (headers && headers instanceof Object && Object.keys(headers).length > 0)
+                xhr.setRequestHeader(headers);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200)
@@ -62,15 +63,15 @@ var Http = /** @class */ (function (_super) {
                 xhr.onerror = function () { return reject(req || 'Erreur Traitement de données !'); };
         });
     };
-    Http.prototype.get = function (url) {
+    Http.prototype.get = function (url, headers) {
         this.method = "get";
         this.url = url;
-        return this.Xhttp();
+        return this.Xhttp(headers);
     };
-    Http.prototype.post = function (url, params) {
+    Http.prototype.post = function (url, params, headers) {
         this.method = "post";
         this.url = url;
-        return this.Xhttp(params ? JSON.stringify(params) : null);
+        return this.Xhttp(params ? JSON.stringify(params) : null, headers);
     };
     Http.prototype.abort = function () {
         this.http.abort();
