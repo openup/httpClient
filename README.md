@@ -3,6 +3,16 @@ http library typeScript / es6
 
 **live exapmle**  *(https://openup.github.io/httpClient/)*
 
+## Method
+**GET**
+``` http.get(url, headers : {}); // headers are Additional (Option) ```
+
+**POST**
+``` http.post(url, params : {}, headers : {}); // params & headers are Additional (Option) ```
+
+**Abort**
+``` http.abort(); // no args needed; cancel current request ```
+
 
 ## How to use
 **you need to compile to JS or integrate the js file**
@@ -15,7 +25,7 @@ const http = new Http(); // by default return JSON , if want text declare new Ht
 let post_url = "http://httpbin.org/post";
 let get_url = "http://httpbin.org/headers";
 
-// for GET request
+// for GET request 
 http.get(get_url).then((res) => {
     console.log('Success : ', res);
 }).catch((err) => {
