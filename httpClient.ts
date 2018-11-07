@@ -42,7 +42,7 @@ class Http extends HttpRequest {
         let c = this;
         let xhr = this.http;
         return new Promise((resolve, reject) => {
-            xhr.open(c.method, c.url);
+            xhr.open(c.method, c.url, null);
  
             xhr.responseType = c.responseType;
             xhr.timeout = 3000;
